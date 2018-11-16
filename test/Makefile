@@ -56,28 +56,6 @@ CMAKE_BINARY_DIR = /home/workspace/CarND-Extended-Kalman-Filter-Project
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -100,6 +78,39 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -121,17 +132,6 @@ install/local: preinstall
 install/local/fast: install/local
 
 .PHONY : install/local/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -166,6 +166,21 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+test/CMakeFiles/kalman_filter.dir/rule:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/kalman_filter.dir/rule
+.PHONY : test/CMakeFiles/kalman_filter.dir/rule
+
+# Convenience name for target.
+kalman_filter: test/CMakeFiles/kalman_filter.dir/rule
+
+.PHONY : kalman_filter
+
+# fast build rule for target.
+kalman_filter/fast:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/build
+.PHONY : kalman_filter/fast
+
+# Convenience name for target.
 test/CMakeFiles/tools.dir/rule:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/tools.dir/rule
 .PHONY : test/CMakeFiles/tools.dir/rule
@@ -186,6 +201,7 @@ __/src/FusionEKF.o: __/src/FusionEKF.cpp.o
 
 # target to build an object file
 __/src/FusionEKF.cpp.o:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/FusionEKF.cpp.o
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/FusionEKF.cpp.o
 .PHONY : __/src/FusionEKF.cpp.o
 
@@ -195,6 +211,7 @@ __/src/FusionEKF.i: __/src/FusionEKF.cpp.i
 
 # target to preprocess a source file
 __/src/FusionEKF.cpp.i:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/FusionEKF.cpp.i
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/FusionEKF.cpp.i
 .PHONY : __/src/FusionEKF.cpp.i
 
@@ -204,6 +221,7 @@ __/src/FusionEKF.s: __/src/FusionEKF.cpp.s
 
 # target to generate assembly for a file
 __/src/FusionEKF.cpp.s:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/FusionEKF.cpp.s
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/FusionEKF.cpp.s
 .PHONY : __/src/FusionEKF.cpp.s
 
@@ -213,6 +231,7 @@ __/src/kalman_filter.o: __/src/kalman_filter.cpp.o
 
 # target to build an object file
 __/src/kalman_filter.cpp.o:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/kalman_filter.cpp.o
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/kalman_filter.cpp.o
 .PHONY : __/src/kalman_filter.cpp.o
 
@@ -222,6 +241,7 @@ __/src/kalman_filter.i: __/src/kalman_filter.cpp.i
 
 # target to preprocess a source file
 __/src/kalman_filter.cpp.i:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/kalman_filter.cpp.i
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/kalman_filter.cpp.i
 .PHONY : __/src/kalman_filter.cpp.i
 
@@ -231,6 +251,7 @@ __/src/kalman_filter.s: __/src/kalman_filter.cpp.s
 
 # target to generate assembly for a file
 __/src/kalman_filter.cpp.s:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/kalman_filter.cpp.s
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/kalman_filter.cpp.s
 .PHONY : __/src/kalman_filter.cpp.s
 
@@ -240,6 +261,7 @@ __/src/tools.o: __/src/tools.cpp.o
 
 # target to build an object file
 __/src/tools.cpp.o:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/tools.cpp.o
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/tools.cpp.o
 .PHONY : __/src/tools.cpp.o
 
@@ -249,6 +271,7 @@ __/src/tools.i: __/src/tools.cpp.i
 
 # target to preprocess a source file
 __/src/tools.cpp.i:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/tools.cpp.i
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/tools.cpp.i
 .PHONY : __/src/tools.cpp.i
 
@@ -258,8 +281,36 @@ __/src/tools.s: __/src/tools.cpp.s
 
 # target to generate assembly for a file
 __/src/tools.cpp.s:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/tools.cpp.s
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/tools.cpp.s
 .PHONY : __/src/tools.cpp.s
+
+kalman_filter.o: kalman_filter.cpp.o
+
+.PHONY : kalman_filter.o
+
+# target to build an object file
+kalman_filter.cpp.o:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/kalman_filter.cpp.o
+.PHONY : kalman_filter.cpp.o
+
+kalman_filter.i: kalman_filter.cpp.i
+
+.PHONY : kalman_filter.i
+
+# target to preprocess a source file
+kalman_filter.cpp.i:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/kalman_filter.cpp.i
+.PHONY : kalman_filter.cpp.i
+
+kalman_filter.s: kalman_filter.cpp.s
+
+.PHONY : kalman_filter.s
+
+# target to generate assembly for a file
+kalman_filter.cpp.s:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/kalman_filter.cpp.s
+.PHONY : kalman_filter.cpp.s
 
 tools.o: tools.cpp.o
 
@@ -294,14 +345,15 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... list_install_components"
-	@echo "... install"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... test"
+	@echo "... list_install_components"
+	@echo "... install"
+	@echo "... kalman_filter"
 	@echo "... tools"
 	@echo "... install/strip"
 	@echo "... install/local"
-	@echo "... test"
 	@echo "... __/src/FusionEKF.o"
 	@echo "... __/src/FusionEKF.i"
 	@echo "... __/src/FusionEKF.s"
@@ -311,6 +363,9 @@ help:
 	@echo "... __/src/tools.o"
 	@echo "... __/src/tools.i"
 	@echo "... __/src/tools.s"
+	@echo "... kalman_filter.o"
+	@echo "... kalman_filter.i"
+	@echo "... kalman_filter.s"
 	@echo "... tools.o"
 	@echo "... tools.i"
 	@echo "... tools.s"

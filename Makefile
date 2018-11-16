@@ -231,6 +231,19 @@ gtest_main/fast:
 .PHONY : gtest_main/fast
 
 #=============================================================================
+# Target rules for targets named kalman_filter
+
+# Build rule for target.
+kalman_filter: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 kalman_filter
+.PHONY : kalman_filter
+
+# fast build rule for target.
+kalman_filter/fast:
+	$(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/build
+.PHONY : kalman_filter/fast
+
+#=============================================================================
 # Target rules for targets named tools
 
 # Build rule for target.
@@ -369,6 +382,7 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... kalman_filter"
 	@echo "... tools"
 	@echo "... src/FusionEKF.o"
 	@echo "... src/FusionEKF.i"

@@ -27,3 +27,5 @@ ide_profiles/xcode/ExtendedKF.build/
 googletest*
 
 *CMakeFiles*
+
+*swp
