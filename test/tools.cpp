@@ -9,7 +9,12 @@ TEST(RMSE, CanBeCalculated)
 {
 	vector<VectorXd> estimations;
 	vector<VectorXd> ground_truth;
-	EXPECT_EQ(1, 1);
+	Tools tools;
+	
+	auto got = tools.CalculateRMSE(estimations, ground_truth);
+        VectorXd want(4);
+	want << 0,0,0,0;
+	EXPECT_EQ(got, want);
 }
 
 int main(int argc, char **argv) {
