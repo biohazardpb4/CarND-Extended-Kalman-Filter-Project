@@ -4,6 +4,7 @@
 #include "../src/tools.h"
 
 using Eigen::VectorXd;
+using Eigen::MatrixXf;
 
 TEST(RMSE, CanBeCalculated)
 {
@@ -29,14 +30,24 @@ TEST(RMSE, CanBeCalculated)
 	ground_truth.push_back(g);
 
 	Tools tools;
-	
 	auto got = tools.CalculateRMSE(estimations, ground_truth);
         VectorXd want(4);
 	want << 0.1, 0.1, 0.1, 0.1;
-	EXPECT_FLOAT_EQ(got[0], want[0]);
-	EXPECT_FLOAT_EQ(got[1], want[1]);
-	EXPECT_FLOAT_EQ(got[2], want[2]);
-	EXPECT_FLOAT_EQ(got[3], want[3]);
+	EXPECT_TRUE(want.isApprox(got, 1e-4));
+}
+
+TEST(JACOBIAN, CanBeCalculated)
+{
+	VectorXd x_predicted(4);
+	x_predicted << 1, 2, 0.2, 0.4;
+
+	Tools tools;
+	auto gotHj = tools.CalculateJacobian(x_predicted);
+	MatrixXd wantHj(3, 4);
+	wantHj <<  0.447214, 0.894427, 0,        0,
+                  -0.4,      0.2,      0,        0,
+                   0,        0,        0.447214, 0.894427;
+	EXPECT_TRUE(wantHj.isApprox(gotHj, 1e-4));
 }
 
 int main(int argc, char **argv) {
