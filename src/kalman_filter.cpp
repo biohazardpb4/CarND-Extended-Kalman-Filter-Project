@@ -21,7 +21,7 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 }
 
 void KalmanFilter::Predict() {
-	x_ = F_ * x_; // TODO: Where "u" at?
+	x_ = F_ * x_; // TODO: Where "u" at? -- we are omitting u for now, since that's external motion and I don't know what that is.
 	P_ = F_ * P_ * F_.transpose() + Q_;
 }
 
@@ -33,7 +33,7 @@ void KalmanFilter::Update(const VectorXd &z) {
 
 	//new state
 	x_ = x_ + (K * y);
-    MatrixXd I = MatrixXd::Identity(2, 2);
+    MatrixXd I = MatrixXd::Identity(x_.size(), x_.size());
 	P_ = (I - K * H_) * P_;
 }
 

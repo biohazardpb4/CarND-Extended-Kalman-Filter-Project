@@ -55,21 +55,24 @@ TEST(KalmanFilter, Update) {
 	measurements.push_back(single_meas);
 	single_meas << 3;
 	measurements.push_back(single_meas);
-//
-//	KalmanFilter filter;
-//	filter.Init(x, P, F, H, R, Q);
-//	for (unsigned int n = 0; n < measurements.size(); n++) {
-//		VectorXd z = measurements[n];
-//		filter.Update(z);
-//		filter.Predict();
-//	}
-//	VectorXd got_x(filter.x_);
-//	VectorXd got_P(filter.P_);
-//
-//	VectorXd want_x(2);
-//	MatrixXd want_P(2, 2); 
-//	EXPECT_TRUE(want_x.isApprox(got_x, 1e-4));
-//	EXPECT_TRUE(want_P.isApprox(got_P, 1e-4));
+
+	KalmanFilter filter;
+	filter.Init(x, P, F, H, R, Q);
+	for (unsigned int n = 0; n < measurements.size(); n++) {
+		VectorXd z = measurements[n];
+		filter.Update(z);
+// 		filter.Predict();
+	}
+// 	VectorXd got_x(filter.x_);
+// 	VectorXd got_P(filter.P_);
+
+// 	VectorXd want_x(2);
+// 	want_x << 0, 0;
+// 	MatrixXd want_P(2, 2);
+// 	want_P << 1000, 0, 0, 1000;
+    
+// 	EXPECT_TRUE(want_x.isApprox(got_x, 1e-4));
+// 	EXPECT_TRUE(want_P.isApprox(got_P, 1e-4));
 }
 
 TEST(KalmanFilter, UpdateEKF) {

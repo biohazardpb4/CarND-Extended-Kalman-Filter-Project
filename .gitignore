@@ -29,3 +29,5 @@ googletest*
 *CMakeFiles*
 
 *swp
+ExtendedKF
+lib/
