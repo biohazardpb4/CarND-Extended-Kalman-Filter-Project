@@ -9,3 +9,7 @@ add_test(NAME kalman_filter_test COMMAND kalman_filter)
 add_executable(tools tools.cpp ${SOURCE_FILES})
 target_link_libraries(tools gtest)
 add_test(NAME tools_test COMMAND tools)
+
+add_executable(fusion_ekf FusionEKF.cpp ${SOURCE_FILES})
+target_link_libraries(fusion_ekf gtest)
+add_test(NAME fusion_ekf_test COMMAND fusion_ekf)

@@ -256,6 +256,19 @@ tools/fast:
 	$(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/build
 .PHONY : tools/fast
 
+#=============================================================================
+# Target rules for targets named fusion_ekf
+
+# Build rule for target.
+fusion_ekf: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 fusion_ekf
+.PHONY : fusion_ekf
+
+# fast build rule for target.
+fusion_ekf/fast:
+	$(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/build
+.PHONY : fusion_ekf/fast
+
 src/FusionEKF.o: src/FusionEKF.cpp.o
 
 .PHONY : src/FusionEKF.o
@@ -384,6 +397,7 @@ help:
 	@echo "... gtest_main"
 	@echo "... kalman_filter"
 	@echo "... tools"
+	@echo "... fusion_ekf"
 	@echo "... src/FusionEKF.o"
 	@echo "... src/FusionEKF.i"
 	@echo "... src/FusionEKF.s"

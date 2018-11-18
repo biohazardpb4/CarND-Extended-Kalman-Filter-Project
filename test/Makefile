@@ -78,17 +78,6 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
-
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -111,6 +100,17 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+
+.PHONY : install/local/fast
+
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -122,16 +122,16 @@ install/strip/fast: install/strip
 
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
 
-# Special rule for the target install/local
-install/local/fast: install/local
+# Special rule for the target test
+test/fast: test
 
-.PHONY : install/local/fast
+.PHONY : test/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -195,6 +195,48 @@ tools/fast:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/build
 .PHONY : tools/fast
 
+# Convenience name for target.
+test/CMakeFiles/fusion_ekf.dir/rule:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/fusion_ekf.dir/rule
+.PHONY : test/CMakeFiles/fusion_ekf.dir/rule
+
+# Convenience name for target.
+fusion_ekf: test/CMakeFiles/fusion_ekf.dir/rule
+
+.PHONY : fusion_ekf
+
+# fast build rule for target.
+fusion_ekf/fast:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/build
+.PHONY : fusion_ekf/fast
+
+FusionEKF.o: FusionEKF.cpp.o
+
+.PHONY : FusionEKF.o
+
+# target to build an object file
+FusionEKF.cpp.o:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/FusionEKF.cpp.o
+.PHONY : FusionEKF.cpp.o
+
+FusionEKF.i: FusionEKF.cpp.i
+
+.PHONY : FusionEKF.i
+
+# target to preprocess a source file
+FusionEKF.cpp.i:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/FusionEKF.cpp.i
+.PHONY : FusionEKF.cpp.i
+
+FusionEKF.s: FusionEKF.cpp.s
+
+.PHONY : FusionEKF.s
+
+# target to generate assembly for a file
+FusionEKF.cpp.s:
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/FusionEKF.cpp.s
+.PHONY : FusionEKF.cpp.s
+
 __/src/FusionEKF.o: __/src/FusionEKF.cpp.o
 
 .PHONY : __/src/FusionEKF.o
@@ -203,6 +245,7 @@ __/src/FusionEKF.o: __/src/FusionEKF.cpp.o
 __/src/FusionEKF.cpp.o:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/FusionEKF.cpp.o
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/FusionEKF.cpp.o
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/__/src/FusionEKF.cpp.o
 .PHONY : __/src/FusionEKF.cpp.o
 
 __/src/FusionEKF.i: __/src/FusionEKF.cpp.i
@@ -213,6 +256,7 @@ __/src/FusionEKF.i: __/src/FusionEKF.cpp.i
 __/src/FusionEKF.cpp.i:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/FusionEKF.cpp.i
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/FusionEKF.cpp.i
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/__/src/FusionEKF.cpp.i
 .PHONY : __/src/FusionEKF.cpp.i
 
 __/src/FusionEKF.s: __/src/FusionEKF.cpp.s
@@ -223,6 +267,7 @@ __/src/FusionEKF.s: __/src/FusionEKF.cpp.s
 __/src/FusionEKF.cpp.s:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/FusionEKF.cpp.s
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/FusionEKF.cpp.s
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/__/src/FusionEKF.cpp.s
 .PHONY : __/src/FusionEKF.cpp.s
 
 __/src/kalman_filter.o: __/src/kalman_filter.cpp.o
@@ -233,6 +278,7 @@ __/src/kalman_filter.o: __/src/kalman_filter.cpp.o
 __/src/kalman_filter.cpp.o:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/kalman_filter.cpp.o
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/kalman_filter.cpp.o
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/__/src/kalman_filter.cpp.o
 .PHONY : __/src/kalman_filter.cpp.o
 
 __/src/kalman_filter.i: __/src/kalman_filter.cpp.i
@@ -243,6 +289,7 @@ __/src/kalman_filter.i: __/src/kalman_filter.cpp.i
 __/src/kalman_filter.cpp.i:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/kalman_filter.cpp.i
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/kalman_filter.cpp.i
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/__/src/kalman_filter.cpp.i
 .PHONY : __/src/kalman_filter.cpp.i
 
 __/src/kalman_filter.s: __/src/kalman_filter.cpp.s
@@ -253,6 +300,7 @@ __/src/kalman_filter.s: __/src/kalman_filter.cpp.s
 __/src/kalman_filter.cpp.s:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/kalman_filter.cpp.s
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/kalman_filter.cpp.s
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/__/src/kalman_filter.cpp.s
 .PHONY : __/src/kalman_filter.cpp.s
 
 __/src/tools.o: __/src/tools.cpp.o
@@ -263,6 +311,7 @@ __/src/tools.o: __/src/tools.cpp.o
 __/src/tools.cpp.o:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/tools.cpp.o
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/tools.cpp.o
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/__/src/tools.cpp.o
 .PHONY : __/src/tools.cpp.o
 
 __/src/tools.i: __/src/tools.cpp.i
@@ -273,6 +322,7 @@ __/src/tools.i: __/src/tools.cpp.i
 __/src/tools.cpp.i:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/tools.cpp.i
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/tools.cpp.i
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/__/src/tools.cpp.i
 .PHONY : __/src/tools.cpp.i
 
 __/src/tools.s: __/src/tools.cpp.s
@@ -283,6 +333,7 @@ __/src/tools.s: __/src/tools.cpp.s
 __/src/tools.cpp.s:
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/kalman_filter.dir/build.make test/CMakeFiles/kalman_filter.dir/__/src/tools.cpp.s
 	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/tools.dir/build.make test/CMakeFiles/tools.dir/__/src/tools.cpp.s
+	cd /home/workspace/CarND-Extended-Kalman-Filter-Project && $(MAKE) -f test/CMakeFiles/fusion_ekf.dir/build.make test/CMakeFiles/fusion_ekf.dir/__/src/tools.cpp.s
 .PHONY : __/src/tools.cpp.s
 
 kalman_filter.o: kalman_filter.cpp.o
@@ -347,13 +398,17 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... test"
 	@echo "... list_install_components"
 	@echo "... install"
 	@echo "... kalman_filter"
 	@echo "... tools"
-	@echo "... install/strip"
 	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... test"
+	@echo "... fusion_ekf"
+	@echo "... FusionEKF.o"
+	@echo "... FusionEKF.i"
+	@echo "... FusionEKF.s"
 	@echo "... __/src/FusionEKF.o"
 	@echo "... __/src/FusionEKF.i"
 	@echo "... __/src/FusionEKF.s"

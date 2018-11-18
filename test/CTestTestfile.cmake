@@ -6,3 +6,4 @@
 # testing this directory and lists subdirectories to be tested as well.
 add_test(kalman_filter_test "/home/workspace/CarND-Extended-Kalman-Filter-Project/test/kalman_filter")
 add_test(tools_test "/home/workspace/CarND-Extended-Kalman-Filter-Project/test/tools")
+add_test(fusion_ekf_test "/home/workspace/CarND-Extended-Kalman-Filter-Project/test/fusion_ekf")

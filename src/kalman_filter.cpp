@@ -39,10 +39,16 @@ void KalmanFilter::Update(const VectorXd &z) {
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
-  /**
-  TODO:
-    * update the state by using Extended Kalman Filter equations
-  */
+	MatrixXd H = CalculateJacobian(z);
+	VectorXd y = z - H * x_;
+    MatrixXd Ht = H.transpose();
+	MatrixXd S = H * P_ * Ht + R_;
+	MatrixXd K =  P_ * Ht * S.inverse();
+
+	//new state
+	x_ = x_ + (K * y);
+    MatrixXd I = MatrixXd::Identity(x_.size(), x_.size());
+	P_ = (I - K * H) * P_;
 }
 
 // Note: This Jacobian calculation is specific to our state transition model.
