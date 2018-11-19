@@ -43,7 +43,7 @@ TEST(KalmanFilter, Update) {
 	MatrixXd R(1, 1);
 	R << 1;
 
-	MatrixXd Q(2, 2);
+	MatrixXd Q(4, 4);
 	Q << 0, 0, 0, 0;
 
 	//create a list of measurements
@@ -77,20 +77,6 @@ TEST(KalmanFilter, Update) {
 
 TEST(KalmanFilter, UpdateEKF) {
 
-}
-
-TEST(KalmanFilter, CalculateJacobian) {
-	//predicted state  example
-	//px = 1, py = 2, vx = 0.2, vy = 0.4
-	VectorXd x_predicted(4);
-	x_predicted << 1, 2, 0.2, 0.4;
-
-	MatrixXd got_Hj = KalmanFilter::CalculateJacobian(x_predicted);
-	MatrixXd want_Hj(3, 4);
-    want_Hj << 0.447214, 0.894427,        0,        0,
-              -0.4,      0.2,        0,        0,
-                 0,        0, 0.447214, 0.8944;
-	EXPECT_TRUE(want_Hj.isApprox(got_Hj, 1e-4));
 }
 
 int main(int argc, char **argv) {

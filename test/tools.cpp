@@ -29,8 +29,7 @@ TEST(RMSE, CanBeCalculated)
 	g << 3.1, 3.1, 0.5, 0.4;
 	ground_truth.push_back(g);
 
-	Tools tools;
-	auto got = tools.CalculateRMSE(estimations, ground_truth);
+	auto got = Tools::CalculateRMSE(estimations, ground_truth);
         VectorXd want(4);
 	want << 0.1, 0.1, 0.1, 0.1;
 	EXPECT_TRUE(want.isApprox(got, 1e-4));
@@ -42,7 +41,7 @@ TEST(JACOBIAN, CanBeCalculated)
 	x_predicted << 1, 2, 0.2, 0.4;
 
 	Tools tools;
-	auto gotHj = tools.CalculateJacobian(x_predicted);
+	auto gotHj = Tools::CalculateJacobian(x_predicted);
 	MatrixXd wantHj(3, 4);
 	wantHj <<  0.447214, 0.894427, 0,        0,
                   -0.4,      0.2,      0,        0,
