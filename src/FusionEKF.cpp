@@ -57,18 +57,21 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       * Remember: you'll need to convert radar from polar to cartesian coordinates.
     */
 
-  // Initial state covariance
-  MatrixXd P(4, 4);
-  P << 1000, 0, 0, 0,
-       0, 1000, 0, 0,
-       0, 0, 1000, 0,
-       0, 0, 0, 1000;
+    ekf_.P_ = MatrixXd(4, 4);
+    // Initial state covariance
+    ekf_.P_ << 1000, 0, 0, 0,
+               0, 1000, 0, 0,
+               0, 0, 1000, 0,
+               0, 0, 0, 1000;
 
-  // Motion control -- assumed to be zero since we know no intrinsics.
-  // VectorXd u(4);
-  // u << 0, 0, 0, 0;
+    // Motion control -- assumed to be zero since we know no intrinsics.
+    // VectorXd u(4);
+    // u << 0, 0, 0, 0;
+    
+    ekf_.F_ = MatrixXd(4, 4);
 
     // first measurement
+    previous_timestamp_ = measurement_pack.timestamp_;
     cout << "EKF: " << endl;
     ekf_.x_ = VectorXd(4);
 
@@ -87,7 +90,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       Initialize state.
       */
       ekf_.x_ << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 0, 0;
-      previous_timestamp_ = measurement_pack.timestamp;
       // ekf_.Init(x, P, F, H, R, Q);
     }
 
@@ -109,15 +111,15 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    */
 
   // State transition matrix (needs dt)
-  MatrixXd F(4, 4);
-  double dt = 0;
-  F << 1, 0, dt, 0,
-       0, 1, 0, dt,
-       0, 0, 1, 0,
-       0, 0, 0, 1;
+  long long dt = measurement_pack.timestamp_ - previous_timestamp_;
+  previous_timestamp_ = measurement_pack.timestamp_;
+  ekf_.F_ << 1, 0, dt, 0,
+             0, 1, 0, dt,
+             0, 0, 1, 0,
+             0, 0, 0, 1;
 
   // Process covariance matrix (needs dt)
-  double noise_ax = 9, noise_ay = 9;
+  long long noise_ax = 9, noise_ay = 9;
   MatrixXd Q_v(2, 2);
   Q_v << noise_ax * noise_ax, 0,
          0, noise_ay * noise_ay;
@@ -126,7 +128,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
        0, dt*dt/2,
        dt, 0,
        0, dt;
-  MatrixXd Q = G * Q_v * G.transpose();
+  ekf_.Q_ = G * Q_v * G.transpose();
 
   ekf_.Predict();
 
@@ -142,14 +144,12 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
     // Radar updates
-
-  // TODO(j): Measurement matrix (radar)
+  	// TODO(j): Measurement matrix (radar)
+    Hj_ == Tools::CalculateJacobian(ekf_.x_);
   } else {
     // Laser updates
-
-  // Measurement matrix (laser)
-  H_laser_ << 1, 0, 0, 0,
-              0, 1, 0, 0;
+    H_laser_ << 1, 0, 0, 0,
+                0, 1, 0, 0;
   }
 
   // print the output
