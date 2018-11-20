@@ -23,8 +23,9 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 }
 
 void KalmanFilter::Predict() {
-	x_ = F_ * x_; // TODO: Where "u" at? -- we are omitting u for now, since that's external motion and I don't know what that is.
-	P_ = F_ * P_ * F_.transpose() + Q_;
+	x_ = F_ * x_;
+	MatrixXd Ft = F_.transpose();
+	P_ = F_ * P_ * Ft + Q_;
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
@@ -50,9 +51,11 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   auto py = x_[1];
   auto vx = x_[2];
   auto vy = x_[3];
-//   if (px*px + py*py < 0.00001) {
-//     return;
-//   }
+  //check division by zero
+  if(fabs(px*px + py*py) < 0.0001){
+    cout << "UpdateEKF () - Error - Division by Zero" << endl;
+    return;
+  }
   VectorXd z_pred(3);
   z_pred << sqrt(px*px + py*py), atan2(py, px), (px*vx + py*vy)/sqrt(px*px + py*py);
   
